@@ -1,0 +1,29 @@
+{
+  "name": "express-php",
+  "version": "2026.2.1",
+  "main": "renderer.js",
+  "scripts": {
+    "preinstall": "node install.js"
+  },
+  "bin": {
+    "php": "cli/php.js",
+    "composer": "cli/composer.js",
+    "cpx": "cli/cpx.js"
+  },
+  "keywords": [
+    "nodejs",
+    "express",
+    "php"
+  ],
+  "author": "MeowSkyKung",
+  "license": "CC-BY-SA-4.0",
+  "description": "Node module that allows you to use PHP code as express template engine.",
+  "os": [
+    "win32"
+  ],
+  "dependencies": {
+    "cheerio": "^1.0.0",
+    "node-fetch-commonjs": "^3.3.2",
+    "unzipper": "^0.12.3"
+  }
+}
