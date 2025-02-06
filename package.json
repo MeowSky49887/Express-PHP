@@ -1,0 +1,19 @@
+{
+  "name": "express-php",
+  "version": "2025.0.1",
+  "main": "renderer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "nodejs",
+    "express",
+    "php"
+  ],
+  "author": "MeowSkyKung",
+  "license": "ISC",
+  "description": "Node module that allows you to use PHP code as express template engine.",
+  "os": [
+    "win32"
+  ]
+}
