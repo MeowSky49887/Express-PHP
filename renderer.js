@@ -5,9 +5,12 @@ const helperPath = path.resolve(__dirname, "helper.php");
 
 module.exports = (filePath, options, callback) => {
     const phpFile = path.resolve(filePath);
-    const data = JSON.stringify(options || {});
+    delete options["settings"];
+    delete options["_locals"];
+    delete options["cache"];
+    const data = JSON.stringify(options || {}).replaceAll('"', '`');
 
-    exec(`php -d auto_prepend_file=${helperPath} ${phpFile} '${data}'`, (err, stdout) => {
+    exec(`php -d auto_prepend_file=${helperPath} ${phpFile} ${data}`, (err, stdout) => {
         if (err) return callback(err);
         callback(null, stdout);
     });
