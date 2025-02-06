@@ -47,7 +47,7 @@ app.listen(3000, () => {
 </head>
 <body>
     <h1>Express + PHP</h1>
-    <p>Hello: <?= $nodejs["Hello"] ?? "No Value"; ?></p>
+    <p>Hello: <?php $nodejs["Hello"] ?? "No Value"; ?></p>
 </body>
 </html>
 ```
