@@ -2,6 +2,7 @@ const { exec } = require("child_process");
 const path = require("path");
 
 const helperPath = path.resolve(__dirname, "helper.php");
+const phpPath = path.resolve(__dirname, "bin", "php.exe");
 
 module.exports = (filePath, options, callback) => {
     const phpFile = path.resolve(filePath);
@@ -10,7 +11,7 @@ module.exports = (filePath, options, callback) => {
     delete options["cache"];
     const data = JSON.stringify(options || {}).replaceAll('"', '`');
 
-    exec(`./bin/php.exe -d auto_prepend_file=${helperPath} ${phpFile} ${data}`, (err, stdout) => {
+    exec(`"${phpPath}" -d auto_prepend_file="${helperPath}" "${phpFile}" ${data}`, (err, stdout) => {
         if (err) return callback(err);
         callback(null, stdout);
     });
