@@ -3,7 +3,7 @@
   "version": "2025.0.1",
   "main": "renderer.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "preinstall": "node install.js"
   },
   "keywords": [
     "nodejs",
@@ -15,5 +15,10 @@
   "description": "Node module that allows you to use PHP code as express template engine.",
   "os": [
     "win32"
-  ]
+  ],
+  "dependencies": {
+    "cheerio": "^1.0.0",
+    "node-fetch-commonjs": "^3.3.2",
+    "unzipper": "^0.12.3"
+  }
 }

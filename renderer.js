@@ -10,7 +10,7 @@ module.exports = (filePath, options, callback) => {
     delete options["cache"];
     const data = JSON.stringify(options || {}).replaceAll('"', '`');
 
-    exec(`php -d auto_prepend_file=${helperPath} ${phpFile} ${data}`, (err, stdout) => {
+    exec(`./bin/php.exe -d auto_prepend_file=${helperPath} ${phpFile} ${data}`, (err, stdout) => {
         if (err) return callback(err);
         callback(null, stdout);
     });
