@@ -5,6 +5,8 @@ express-php
 
 > Node module that allows you to use PHP code as express template engine.
 
+*This module only supports Windows (Tested on Windows 10)*
+
 Installation
 ------------
 
