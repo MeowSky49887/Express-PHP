@@ -12,7 +12,6 @@ module.exports = (filePath, options, callback) => {
     fs.writeFileSync(tmpFile, JSON.stringify(options || {}));
 
     exec(`"${phpPath}" -d auto_prepend_file="${helperPath}" "${phpFile}" "${tmpFile}"`, (err, stdout) => {
-        fs.unlinkSync(tmpFile);
         if (err) return callback(err);
         callback(null, stdout);
     });
