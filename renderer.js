@@ -1,6 +1,7 @@
 const fs = require("fs");
 const os = require("os");
 const { exec } = require("child_process");
+const path = require("path");
 
 module.exports = (filePath, options, callback) => {
     const phpFile = path.resolve(filePath);
