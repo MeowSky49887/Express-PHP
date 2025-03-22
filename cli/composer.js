@@ -8,4 +8,16 @@ const composerPath = path.resolve(__dirname, "..", "bin", "composer", "composer.
 const projectDir = require.main ? require.main.path : process.cwd()
 const args = process.argv.slice(2).join(" ");
 
-exec(`"${phpPath}" -c "${projectDir}" "${composerPath}" ${args}`, { cwd: projectDir, stdio: "inherit" });
+const command = `"${phpPath}" -c "${projectDir}" "${composerPath}" ${args}`;
+console.log(`Executing: ${command}`);
+
+exec(command, { cwd: projectDir, stdio: "inherit" }, (err, stdout, stderr) => {
+    if (err) {
+        console.error(`Error: ${err.message}`);
+        return;
+    }
+    if (stderr) {
+        console.error(`Error: ${stderr}`);
+    }
+    console.log(stdout);
+});

@@ -8,4 +8,16 @@ const cpxPath = path.resolve(__dirname, "..", "bin", "composer", "vendor", "bin"
 const projectDir = require.main ? require.main.path : process.cwd()
 const args = process.argv.slice(2).join(" ");
 
-exec(`"${phpPath}" -c "${projectDir}" "${cpxPath}" ${args}`, { cwd: projectDir, stdio: "inherit" });
+const command = `"${phpPath}" -c "${projectDir}" "${cpxPath}" ${args}`;
+console.log(`Executing: ${command}`);
+
+exec(command, { cwd: projectDir, stdio: "inherit" }, (err, stdout, stderr) => {
+    if (err) {
+        console.error(`Error: ${err.message}`);
+        return;
+    }
+    if (stderr) {
+        console.error(`Error: ${stderr}`);
+    }
+    console.log(stdout);
+});
