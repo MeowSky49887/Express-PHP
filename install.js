@@ -78,8 +78,13 @@ async function extractPHP(zipFilePath) {
 async function installComposerCPX() {
     try {
         console.log('Downloading Composer...');
-
-        fs.copyFile(`${path.join(installPath, 'php.ini-development')}`, `${path.join(workDir, 'php.ini')}`);
+        
+        if (!fs.existsSync(path.join(workDir, "php.ini"))) {
+            fs.copyFileSync(path.join(installPath, "php.ini-development"), path.join(workDir, "php.ini"));
+            console.log("php.ini copied successfully.");
+        } else {
+            console.log("php.ini already exists, skipping copy.");
+        }
 
         if (!fs.existsSync(composerPath)) {
             fs.mkdirSync(composerPath, { recursive: true });
