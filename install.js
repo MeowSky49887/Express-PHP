@@ -6,7 +6,8 @@ const path = require('path');
 
 const baseURL = 'https://windows.php.net/downloads/releases';
 const downloadURL = 'https://windows.php.net';
-const extractPath = path.join(__dirname, 'bin');
+const installPath = path.join(__dirname, 'bin');
+const composerPath = path.join(installPath, 'composer');
 
 async function getLatestPHPURL() {
     try {
@@ -55,18 +56,48 @@ async function downloadLatestPHP() {
 
 async function extractPHP(zipFilePath) {
     try {
-        console.log(`Extracting to: ${extractPath}`);
+        console.log(`Extracting to: ${installPath}`);
 
-        if (!fs.existsSync(extractPath)) {
-            fs.mkdirSync(extractPath, { recursive: true });
+        if (!fs.existsSync(installPath)) {
+            fs.mkdirSync(installPath, { recursive: true });
         }
 
         const directory = await unzipper.Open.file(zipFilePath);
 
-        return await directory.extract({ path: extractPath });
+        return await directory.extract({ path: installPath });
     } catch (error) {
         console.error('Error extracting PHP:', error);
     }
 }
 
-downloadLatestPHP();
+async function installComposerCPX() {
+    try {
+        console.log('Downloading Composer...');
+
+        if (!fs.existsSync(composerPath)) {
+            fs.mkdirSync(composerPath, { recursive: true });
+        }
+
+        const composerSetupPath = path.join(installPath, 'composer-setup.php');
+        const composerInstaller = await fetch('https://getcomposer.org/installer');
+        const buffer = await composerInstaller.arrayBuffer();
+        fs.writeFileSync(composerSetupPath, Buffer.from(buffer));
+
+        console.log('Installing Composer...');
+        execSync(`"${path.join(installPath, 'php.exe')}" -d extension=openssl "${composerSetupPath}" --install-dir="${composerPath}"`, { stdio: 'inherit' });
+
+        process.env.COMPOSER_HOME = composerPath;
+
+        execSync(`"${path.join(installPath, 'php.exe')}" -d extension_dir=ext -d extension=openssl "${path.join(composerPath, 'composer.phar')}" global require cpx/cpx`, { stdio: 'inherit' });
+        console.log('CPX installed successfully.');
+
+        console.log('Composer and CPX installed successfully.');
+    } catch (error) {
+        console.error('Error installing Composer:', error);
+    }
+}
+
+async () => {
+    await downloadLatestPHP();
+    await installComposerCPX();
+}

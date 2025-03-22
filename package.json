@@ -5,6 +5,11 @@
   "scripts": {
     "preinstall": "node install.js"
   },
+  "bin": {
+    "php": "cli/php.js",
+    "composer": "cli/composer.js",
+    "cpx": "cli/cpx.js"
+  },
   "keywords": [
     "nodejs",
     "express",
