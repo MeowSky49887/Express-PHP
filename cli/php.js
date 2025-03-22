@@ -4,13 +4,14 @@ const { exec } = require("child_process");
 const path = require("path");
 
 const phpPath = path.resolve(__dirname, "..", "bin", "php.exe");
-const projectDir = process.cwd();
+const workDir = process.cwd();
 const args = process.argv.slice(2).join(" ");
+args = args.replace(/^\[|\]$/g, ""); // Remove leading/trailing brackets
 
-const command = `"${phpPath}" -c "${projectDir}" ${args}`;
+const command = `"${phpPath}" -c "${workDir}" ${args}`;
 console.log(`Executing: ${command}`);
 
-exec(command, { cwd: projectDir, stdio: "inherit" }, (err, stdout, stderr) => {
+exec(command, { cwd: workDir, stdio: "inherit" }, (err, stdout, stderr) => {
     if (err) {
         console.error(`Error: ${err.message}`);
         return;
