@@ -9,7 +9,7 @@ const baseURL = 'https://windows.php.net/downloads/releases';
 const downloadURL = 'https://windows.php.net';
 const installPath = path.join(__dirname, 'bin');
 const composerPath = path.join(installPath, 'composer');
-const workDir = process.cwd();
+const workDir = process.env.INIT_CWD;
 
 async function getLatestPHPURL() {
     try {
@@ -78,7 +78,7 @@ async function extractPHP(zipFilePath) {
 async function installComposerCPX() {
     try {
         console.log('Downloading Composer...');
-        
+
         if (!fs.existsSync(path.join(workDir, "php.ini"))) {
             fs.copyFileSync(path.join(installPath, "php.ini-development"), path.join(workDir, "php.ini"));
             console.log("php.ini copied successfully.");
