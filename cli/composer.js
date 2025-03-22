@@ -8,4 +8,4 @@ const composerPath = path.resolve(__dirname, "..", "bin", "composer", "composer.
 const projectDir = require.main ? require.main.path : process.cwd()
 const args = process.argv.slice(2).join(" ");
 
-exec(`"${phpPath}" -c "${projectDir}" "${composerPath}" ${args}`, { stdio: "inherit" });
+exec(`"${phpPath}" -c "${projectDir}" "${composerPath}" ${args}`, { cwd: projectDir, stdio: "inherit" });

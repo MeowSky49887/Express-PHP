@@ -7,4 +7,4 @@ const phpPath = path.resolve(__dirname, "..", "bin", "php.exe");
 const projectDir = require.main ? require.main.path : process.cwd()
 const args = process.argv.slice(2).join(" ");
 
-exec(`"${phpPath}" -c "${projectDir}" ${args}`, { stdio: "inherit" });
+exec(`"${phpPath}" -c "${projectDir}" ${args}`, { cwd: projectDir, stdio: "inherit" });
