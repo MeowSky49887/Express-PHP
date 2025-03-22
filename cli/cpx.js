@@ -5,7 +5,7 @@ const path = require("path");
 
 const phpPath = path.resolve(__dirname, "..", "bin", "php.exe");
 const cpxPath = path.resolve(__dirname, "..", "bin", "composer", "vendor", "bin", "cpx");
-const projectDir = require.main ? require.main.path : process.cwd()
+const projectDir = process.cwd();
 const args = process.argv.slice(2).join(" ");
 
 const command = `"${phpPath}" -c "${projectDir}" "${cpxPath}" ${args}`;

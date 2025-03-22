@@ -97,7 +97,7 @@ async function installComposerCPX() {
     }
 }
 
-async () => {
+(async () => {
     await downloadLatestPHP();
     await installComposerCPX();
-}
+})();

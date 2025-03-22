@@ -4,7 +4,7 @@ const { exec } = require("child_process");
 const path = require("path");
 
 const phpPath = path.resolve(__dirname, "..", "bin", "php.exe");
-const projectDir = require.main ? require.main.path : process.cwd()
+const projectDir = process.cwd();
 const args = process.argv.slice(2).join(" ");
 
 const command = `"${phpPath}" -c "${projectDir}" ${args}`;

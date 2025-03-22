@@ -5,7 +5,7 @@ const path = require("path");
 
 const phpPath = path.resolve(__dirname, "..", "bin", "php.exe");
 const composerPath = path.resolve(__dirname, "..", "bin", "composer", "composer.phar");
-const projectDir = require.main ? require.main.path : process.cwd()
+const projectDir = process.cwd();
 const args = process.argv.slice(2).join(" ");
 
 const command = `"${phpPath}" -c "${projectDir}" "${composerPath}" ${args}`;
