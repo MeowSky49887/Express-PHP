@@ -6,8 +6,7 @@ const path = require("path");
 const phpPath = path.resolve(__dirname, "..", "bin", "php.exe");
 const composerPath = path.resolve(__dirname, "..", "bin", "composer", "composer.phar");
 const workDir = process.cwd();
-const args = process.argv.slice(2).join(" ");
-args = args.replace(/^\[|\]$/g, ""); // Remove leading/trailing brackets
+const args = process.argv.slice(2).join(" ").replace(/^\[|\]$/g, ""); // Remove leading/trailing brackets
 
 const command = `"${phpPath}" -c "${workDir}" "${composerPath}" ${args}`;
 console.log(`Executing: ${command}`);
