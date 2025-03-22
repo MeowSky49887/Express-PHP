@@ -1,8 +1,9 @@
-const fs = require('fs');
 const fetch = require('node-fetch-commonjs');
 const cheerio = require('cheerio');
 const unzipper = require('unzipper');
+const fs = require('fs');
 const path = require('path');
+const { execSync } = require('child_process');
 
 const baseURL = 'https://windows.php.net/downloads/releases';
 const downloadURL = 'https://windows.php.net';
@@ -31,6 +32,7 @@ async function getLatestPHPURL() {
         return `${downloadURL}${latestFile}`;
     } catch (error) {
         console.error('Error fetching latest PHP version:', error);
+        process.exit(1);
     }
 }
 
@@ -51,6 +53,7 @@ async function downloadLatestPHP() {
         await extractPHP(filePath);
     } catch (error) {
         console.error('Error downloading latest PHP version:', error);
+        process.exit(1);
     }
 }
 
@@ -67,6 +70,7 @@ async function extractPHP(zipFilePath) {
         return await directory.extract({ path: installPath });
     } catch (error) {
         console.error('Error extracting PHP:', error);
+        process.exit(1);
     }
 }
 
@@ -94,6 +98,7 @@ async function installComposerCPX() {
         console.log('Composer and CPX installed successfully.');
     } catch (error) {
         console.error('Error installing Composer:', error);
+        process.exit(1);
     }
 }
 
