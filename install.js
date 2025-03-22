@@ -84,7 +84,7 @@ async function installComposerCPX() {
         fs.writeFileSync(composerSetupPath, Buffer.from(buffer));
 
         console.log('Installing Composer...');
-        execSync(`"${path.join(installPath, 'php.exe')}" -d extension=openssl "${composerSetupPath}" --install-dir="${composerPath}"`, { stdio: 'inherit' });
+        execSync(`"${path.join(installPath, 'php.exe')}" -d extension_dir=ext -d extension=openssl "${composerSetupPath}" --install-dir="${composerPath}"`, { stdio: 'inherit' });
 
         process.env.COMPOSER_HOME = composerPath;
 
