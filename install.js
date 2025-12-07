@@ -11,6 +11,8 @@ const installPath = path.join(__dirname, 'bin');
 const composerPath = path.join(installPath, 'composer');
 const workDir = process.env.INIT_CWD;
 
+const systemArch = process.arch === "x64" ? "x64" : "x86";
+
 async function getLatestPHPURL() {
     try {
         const response = await fetch(baseURL);
@@ -28,7 +30,7 @@ async function getLatestPHPURL() {
             return versionB.localeCompare(versionA, undefined, { numeric: true });
         });
 
-        const latestFile = phpFiles.find(link => link.includes('-x86.zip'));
+        const latestFile = phpFiles.find(link => link.includes(`-${systemArch}.zip`));
 
         return `${downloadURL}${latestFile}`;
     } catch (error) {
@@ -101,7 +103,7 @@ async function installComposerCPX() {
 
         console.log('Composer and CPX installed successfully.');
     } catch (error) {
-        console.error('Error installing Composer:', error);
+        console.error('Error installing Composer and CPX:', error);
         process.exit(1);
     }
 }
@@ -110,3 +112,4 @@ async function installComposerCPX() {
     await downloadLatestPHP();
     await installComposerCPX();
 })();
+
