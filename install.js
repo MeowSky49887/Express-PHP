@@ -77,7 +77,7 @@ async function extractPHP(zipFilePath) {
 
 async function installComposerCPX() {
     try {
-        console.log('Downloading Composer...');
+        console.log('Installing Composer and CPX...');
 
         if (!fs.existsSync(path.join(workDir, "php.ini"))) {
             fs.copyFileSync(path.join(installPath, "php.ini-development"), path.join(workDir, "php.ini"));
@@ -95,13 +95,9 @@ async function installComposerCPX() {
         const buffer = await composerInstaller.arrayBuffer();
         fs.writeFileSync(composerSetupPath, Buffer.from(buffer));
 
-        console.log('Installing Composer...');
-        execSync(`"${path.join(installPath, 'php.exe')}" -d extension_dir=ext -d extension=openssl "${composerSetupPath}" --install-dir="${composerPath}"`, { stdio: 'inherit' });
-
+        execSync(`"${path.join(installPath, 'php.exe')}" -d extension_dir=ext -d extension=openssl "${composerSetupPath}" --install-dir="${composerPath}"`, { stdio: 'inherit' });        
         process.env.COMPOSER_HOME = composerPath;
-
         execSync(`"${path.join(installPath, 'php.exe')}" -d extension_dir=ext -d extension=openssl "${path.join(composerPath, 'composer.phar')}" global require cpx/cpx`, { stdio: 'inherit' });
-        console.log('CPX installed successfully.');
 
         console.log('Composer and CPX installed successfully.');
     } catch (error) {
