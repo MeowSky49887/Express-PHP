@@ -17,12 +17,13 @@ async function getLatestPHPURL() {
     try {
         const response = await fetch(baseURL);
         const html = await response.text();
-        const $ = cheerio.load(html);
 
-        const phpFiles = $('a')
-            .map((_, el) => $(el).attr('href'))
-            .get()
-            .filter(link => link && link.match(/php-(\d+\.\d+\.\d+)-Win32-vs\d+-(x86|x64)\.zip$/));
+        const links = [...html.matchAll(/href="([^"]+)"/g)]
+            .map(match => match[1]);
+
+        const phpFiles = links.filter(link =>
+            link && /php-(\d+\.\d+\.\d+)-Win32-vs\d+-(x86|x64)\.zip$/.test(link)
+        );
 
         phpFiles.sort((a, b) => {
             const versionA = a.match(/php-(\d+\.\d+\.\d+)-Win32/)[1];
