@@ -1,5 +1,4 @@
 const fetch = require('node-fetch-commonjs');
-const cheerio = require('cheerio');
 const unzipper = require('unzipper');
 const fs = require('fs');
 const path = require('path');
