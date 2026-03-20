@@ -1,4 +1,3 @@
-const fetch = require('node-fetch-commonjs');
 const unzipper = require('unzipper');
 const fs = require('fs');
 const path = require('path');
@@ -17,9 +16,9 @@ async function getLatestPHPURL() {
         const response = await fetch(baseURL);
         const html = await response.text();
 
-        const links = [...html.matchAll(/href="([^"]+)"/g)]
+        const links = [...html.matchAll(/href="([^"]+)"/gi)]
             .map(match => match[1]);
-
+            
         const phpFiles = links.filter(link =>
             link && /php-(\d+\.\d+\.\d+)-Win32-vs\d+-(x86|x64)\.zip$/.test(link)
         );
