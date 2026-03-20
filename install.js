@@ -16,7 +16,7 @@ async function getLatestPHPURL() {
         const response = await fetch(baseURL);
         const html = await response.text();
 
-        const links = [...html.matchAll(/href="([^"]+)"/gi)]
+        const links = [...html.matchAll(/href=["']([^"']+)["']/gi)]
             .map(match => match[1]);
             
         const phpFiles = links.filter(link =>
