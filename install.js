@@ -31,7 +31,7 @@ async function getLatestPHPURL() {
 
         const latestFile = phpFiles.find(link => link.includes(`-${systemArch}.zip`));
 
-        return `${downloadURL}${latestFile}`;
+        return `${downloadURL}/${latestFile}`;
     } catch (error) {
         console.error('Error fetching latest PHP version:', error);
         process.exit(1);
