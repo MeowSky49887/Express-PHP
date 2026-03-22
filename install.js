@@ -5,7 +5,6 @@ const { execSync } = require('child_process');
 
 const baseURL = 'https://windows.php.net/downloads/releases';
 const downloadURL = 'https://downloads.php.net/~windows/releases/';
-const tempPath = path.join(__dirname, 'tmp');
 const installPath = path.join(__dirname, 'bin');
 const composerPath = path.join(installPath, 'composer');
 const workDir = process.env.INIT_CWD;
@@ -99,8 +98,8 @@ async function installComposerCPX() {
         const buffer = await composerInstaller.arrayBuffer();
         fs.writeFileSync(composerSetupPath, Buffer.from(buffer));
 
-        execSync(`"${path.join(installPath, 'php.exe')}" -d sys_temp_dir="${tempPath}" -d extension_dir=ext -d extension=openssl "${composerSetupPath}" --install-dir="${composerPath}"`, { stdio: 'inherit' });        
-        execSync(`"${path.join(installPath, 'php.exe')}" -d sys_temp_dir="${tempPath}" -d extension_dir=ext -d extension=openssl "${path.join(composerPath, 'composer.phar')}" global require cpx/cpx`, { stdio: 'inherit' });
+        execSync(`"${path.join(installPath, 'php.exe')}" -d extension_dir=ext -d extension=openssl "${composerSetupPath}" --install-dir="${composerPath}"`, { stdio: 'inherit' });        
+        execSync(`"${path.join(installPath, 'php.exe')}" -d extension_dir=ext -d extension=openssl "${path.join(composerPath, 'composer.phar')}" global require cpx/cpx`, { stdio: 'inherit' });
 
         console.log('Composer and CPX installed successfully.');
     } catch (error) {
@@ -113,4 +112,3 @@ async function installComposerCPX() {
     await downloadLatestPHP();
     await installComposerCPX();
 })();
-
