@@ -98,8 +98,8 @@ async function installComposerCPX() {
         const buffer = await composerInstaller.arrayBuffer();
         fs.writeFileSync(composerSetupPath, Buffer.from(buffer));
 
-        execSync(`"${path.join(installPath, 'php.exe')}" -d extension_dir=ext -d extension=openssl "${composerSetupPath}" --install-dir="${composerPath}"`, { stdio: 'inherit' });        
-        execSync(`"${path.join(installPath, 'php.exe')}" -d extension_dir=ext -d extension=openssl "${path.join(composerPath, 'composer.phar')}" global require cpx/cpx`, { stdio: 'inherit' });
+        execSync(`"${path.join(installPath, 'php.exe')}" -c "${path.join(workDir, "php.ini")}" -d extension_dir=ext -d extension=openssl "${composerSetupPath}" --install-dir="${composerPath}"`, { stdio: 'inherit' });        
+        execSync(`"${path.join(installPath, 'php.exe')}" -c "${path.join(workDir, "php.ini")}" -d extension_dir=ext -d extension=openssl "${path.join(composerPath, 'composer.phar')}" global require cpx/cpx`, { stdio: 'inherit' });
 
         console.log('Composer and CPX installed successfully.');
     } catch (error) {
@@ -112,3 +112,4 @@ async function installComposerCPX() {
     await downloadLatestPHP();
     await installComposerCPX();
 })();
+
