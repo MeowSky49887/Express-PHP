@@ -4,7 +4,7 @@ const path = require('path');
 const { execSync } = require('child_process');
 
 const baseURL = 'https://windows.php.net/downloads/releases';
-const downloadURL = 'https://windows.php.net';
+const downloadURL = 'https://downloads.php.net/~windows/releases/';
 const installPath = path.join(__dirname, 'bin');
 const composerPath = path.join(installPath, 'composer');
 const workDir = process.env.INIT_CWD;
