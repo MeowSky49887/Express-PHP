@@ -91,13 +91,14 @@ async function installComposerCPX() {
             fs.mkdirSync(composerPath, { recursive: true });
         }
 
+        process.env.COMPOSER_HOME = composerPath;
+
         const composerSetupPath = path.join(installPath, 'composer-setup.php');
         const composerInstaller = await fetch('https://getcomposer.org/installer');
         const buffer = await composerInstaller.arrayBuffer();
         fs.writeFileSync(composerSetupPath, Buffer.from(buffer));
 
         execSync(`"${path.join(installPath, 'php.exe')}" -d extension_dir=ext -d extension=openssl "${composerSetupPath}" --install-dir="${composerPath}"`, { stdio: 'inherit' });        
-        process.env.COMPOSER_HOME = composerPath;
         execSync(`"${path.join(installPath, 'php.exe')}" -d extension_dir=ext -d extension=openssl "${path.join(composerPath, 'composer.phar')}" global require cpx/cpx`, { stdio: 'inherit' });
 
         console.log('Composer and CPX installed successfully.');
